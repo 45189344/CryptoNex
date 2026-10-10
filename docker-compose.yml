@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: crypto-nex-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cryptonex
+      POSTGRES_PASSWORD: cryptonex_secret
+      POSTGRES_DB: cryptonex_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/src/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cryptonex -d cryptonex_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  neo4j:
+    image: neo4j:5.21-community
+    container_name: crypto-nex-neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: neo4j/cryptonex_graph
+      NEO4J_PLUGINS: '["apoc"]'
+    ports:
+      - "7474:7474" # HTTP Browser
+      - "7687:7687" # Bolt protocol
+    volumes:
+      - neo4j_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7474 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  analytics:
+    build:
+      context: ./analytics
+      dockerfile: ../docker/Dockerfile.analytics
+    container_name: crypto-nex-analytics
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/Dockerfile.backend
+    container_name: crypto-nex-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      NODE_ENV: production
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: cryptonex
+      POSTGRES_PASSWORD: cryptonex_secret
+      POSTGRES_DB: cryptonex_db
+      ENABLE_POSTGRES: "true"
+      NEO4J_URI: bolt://neo4j:7687
+      NEO4J_USER: neo4j
+      NEO4J_PASSWORD: cryptonex_graph
+      ENABLE_NEO4J: "true"
+      ANALYTICS_SERVICE_URL: http://analytics:8000
+      DEMO_MODE: "true"
+      ETHERSCAN_API_KEY: ${ETHERSCAN_API_KEY:-}
+      ALCHEMY_API_KEY: ${ALCHEMY_API_KEY:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+      analytics:
+        condition: service_started
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    container_name: crypto-nex-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  neo4j_data:
