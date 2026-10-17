@@ -1,4 +1,4 @@
-# 🛡️ CRYPTO-NEX: Blockchain Intelligence for Automated VASP Attribution
+#  CRYPTO-NEX: Blockchain Intelligence for Automated VASP Attribution
 > **Smart India Hackathon (SIH 2026) Official Platform**
 
 [![Tech Stack](https://img.shields.io/badge/Stack-React_18_%7C_Node.js_%7C_PostgreSQL_%7C_Neo4j_%7C_Python_FastAPI-06b6d4)](https://github.com)
@@ -7,33 +7,33 @@
 
 ---
 
-## 🎯 The Problem
+The Problem
 An unknown cryptocurrency wallet address does not directly reveal its associated Virtual Asset Service Provider (VASP). Illicit or unhosted funds frequently hop through multiple intermediary wallets before reaching centralized exchange liquidation points, making manual tracking time-consuming and error-prone.
 
-## 💡 The Solution: CRYPTO-NEX
+ The Solution: CRYPTO-NEX
 **CRYPTO-NEX** automates on-chain counterparty discovery, reconstructs multi-hop transaction graphs (1 to 3 hops), matches entities against known VASP address clusters, and computes a **probabilistic 5-factor attribution score** with explainable evidence and intelligence dossiers.
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
-- 🔍 **Automated Multi-Hop Graph Traversal:** 1-Hop, 2-Hop, and 3-Hop BFS counterparty mapping.
-- 🎯 **5-Factor Probabilistic Attribution:**
+-  **Automated Multi-Hop Graph Traversal:** 1-Hop, 2-Hop, and 3-Hop BFS counterparty mapping.
+-  **5-Factor Probabilistic Attribution:**
   - `30%` Graph Proximity (Decay model)
   - `25%` Transaction Volume Overlap
   - `20%` Interaction Frequency
   - `15%` Behavioral & Sweeper Similarity
   - `10%` Temporal Settlement Window Pattern
-- 📊 **Interactive Graph Workbench:** Visual node-link canvas with radial hop tiers, zoom/pan, and node forensics.
-- ⚡ **Explainable AI (XAI) Evidence:** Radar charts, mathematical breakdown matrices, and counterparty match tables.
-- ⚠️ **Behavioral Risk Indicators:** Automatic detection of high-volume movement, rapid velocity bursts, peeling chains, and mixer proximity.
-- 📋 **Law Enforcement Investigation Dossiers:** Case notes management and printable PDF-ready intelligence reports.
-- 🏛️ **VASP Address Registry:** Searchable directory of verified exchange clusters (Binance, Coinbase, Kraken, OKX, Bybit, KuCoin, Uniswap).
-- ⚙️ **Configurable Scoring Weights:** Real-time interactive weight sliders with dynamic recalculation.
+-  **Interactive Graph Workbench:** Visual node-link canvas with radial hop tiers, zoom/pan, and node forensics.
+-  **Explainable AI (XAI) Evidence:** Radar charts, mathematical breakdown matrices, and counterparty match tables.
+-  **Behavioral Risk Indicators:** Automatic detection of high-volume movement, rapid velocity bursts, peeling chains, and mixer proximity.
+-  **Law Enforcement Investigation Dossiers:** Case notes management and printable PDF-ready intelligence reports.
+-  **VASP Address Registry:** Searchable directory of verified exchange clusters (Binance, Coinbase, Kraken, OKX, Bybit, KuCoin, Uniswap).
+-  **Configurable Scoring Weights:** Real-time interactive weight sliders with dynamic recalculation.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer | Technologies |
 |---|---|
@@ -46,7 +46,7 @@ An unknown cryptocurrency wallet address does not directly reveal its associated
 
 ---
 
-## ⚡ Quickstart (Running Locally)
+##  Quickstart (Running Locally)
 
 ### 1. Install Dependencies
 ```bash
@@ -82,7 +82,7 @@ docker-compose up --build -d
 
 ---
 
-## 🧪 Benchmark Test Presets (One-Click Demo)
+##  Benchmark Test Presets (One-Click Demo)
 
 | Preset | Target Wallet | Primary Expected Attribution | Hops |
 |---|---|---|---|
@@ -94,7 +94,7 @@ docker-compose up --build -d
 
 ---
 
-## ⚖️ Legal & Compliance Statement
+##  Legal & Compliance Statement
 - **Probabilistic Attribution:** All outputs represent probabilistic statistical inferences and do **not** constitute definitive proof of wallet ownership or natural person identity.
 - **Zero PII:** No personally identifiable information is collected or inferred.
 - **Verified vs Demo Separation:** All data is strictly categorized into `VERIFIED_PUBLIC` vs `DEMO_SIMULATION` clusters.
